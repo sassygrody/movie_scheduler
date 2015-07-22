@@ -17,8 +17,4 @@ class Movie
     duration = duration.hour * 60 + duration.min
     duration
   end
-
-  def is_playing_in?(theater)
-    theater.movies.include?(self)
-  end
 end
