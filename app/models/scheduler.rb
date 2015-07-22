@@ -1,7 +1,6 @@
 require_relative 'movie'
 require_relative 'theater'
 require 'csv'
-require 'pry'
 require 'pp'
 
 def schedule_movies(file)
@@ -24,8 +23,8 @@ def schedule_movies(file)
       puts 'Something went wrong.'
     end
   end
-
-  print_theaters_with_movies(list_of_theaters)
+  print_theater_with_movie_show_times(list_of_theaters)
+  # print_theaters_with_movies(list_of_theaters)
 end
 
 def assign_movie_to_theater(movie, theater)
@@ -33,13 +32,27 @@ def assign_movie_to_theater(movie, theater)
 end
 
 def print_theaters_with_movies(theaters)
+  puts 'The following theaters are currently showing these movies'
   theaters.each do |theater|
-    puts "====="
+    puts '====='
     puts theater.name
-    puts "====="
+    puts '====='
     theater.movies.each do |movie|
-      puts "#{movie.title} - #{movie.duration_in_minutes(movie)} minutes"
+      puts "#{movie.title} - #{movie.duration_in_minutes} minutes"
     end
+    puts "\n"
+  end
+end
+
+def print_theater_with_movie_show_times(theaters)
+  puts 'These are the show times for movies!'
+
+  theaters.each do |theater|
+    puts '===='
+    puts theater.name
+    puts '===='
+
+
     puts "\n"
   end
 end

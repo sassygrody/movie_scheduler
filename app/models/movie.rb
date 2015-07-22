@@ -11,8 +11,8 @@ class Movie
     @duration = duration
   end
 
-  def duration_in_minutes(movie)
-    duration = Time.parse(movie.duration)
+  def duration_in_minutes
+    duration = Time.parse(self.duration)
     duration = duration.hour * 60 + duration.min
     duration
   end
