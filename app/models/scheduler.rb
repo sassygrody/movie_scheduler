@@ -17,42 +17,33 @@ def schedule_movies(file)
     elsif row[0] == 'Show'
       list_of_theaters.each do |theater|
         movie_from_row = list_of_movies.detect { |movie| movie.title == row[1] }
-        assign_movie_to_theater(movie_from_row, theater) if theater.name == row[2]
+        theater.add_movie(movie_from_row) if theater.name == row[2]
       end
     else
       puts 'Something went wrong.'
     end
   end
+
   print_theater_with_movie_show_times(list_of_theaters)
-  # print_theaters_with_movies(list_of_theaters)
-end
-
-def assign_movie_to_theater(movie, theater)
-  theater.movies << movie
-end
-
-def print_theaters_with_movies(theaters)
-  puts 'The following theaters are currently showing these movies'
-  theaters.each do |theater|
-    puts '====='
-    puts theater.name
-    puts '====='
-    theater.movies.each do |movie|
-      puts "#{movie.title} - #{movie.duration_in_minutes} minutes"
-    end
-    puts "\n"
-  end
 end
 
 def print_theater_with_movie_show_times(theaters)
-  puts 'These are the show times for movies!'
-
   theaters.each do |theater|
     puts '===='
     puts theater.name
+    puts "--Hours of operation #{theater.format_open_hour_with_minutes} to #{theater.format_close_hour_with_minutes}"
+    puts "--Theater has #{theater.screen_count} screens"
+    puts "--Theater has #{theater.movies.count} movies"
     puts '===='
-
-
     puts "\n"
+
+    theater.movies.each do |movie|
+      theater.assign_movie_start_times(movie)
+      puts movie.title
+
+      movie.start_times.each do |time|
+        puts "#{time.hour}:#{time.min}"
+      end
+    end
   end
 end

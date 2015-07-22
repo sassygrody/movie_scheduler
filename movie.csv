@@ -1,12 +1,5 @@
-Open, Mega Movie, 5, 13:15, 23:00
-Open, Screen Zone, 12, 9:00, 20:30
-Open, Quick Flick, 2, 14:00, 23:59
-Book, MovieA, 2010, PG, 1:30
-Book, MovieB, 2000, PG-13, 1:45
-Book, MovieC, 2004, R, 2:00
-Show, MovieA, Quick Flick
-Show, MovieB, Quick Flick
-Show, MovieA, Screen Zone
-Show, MovieC, Screen Zone
-Show, MovieA, Mega Movie
-Show, MovieC, Mega Movie
+Open,Quick Flick,2,14:00,23:59
+Book,MovieA,2010,PG,1:30
+Book,MovieB,2000,PG-13,2:00
+Show,MovieA,Quick Flick
+Show,MovieB,Quick Flick
