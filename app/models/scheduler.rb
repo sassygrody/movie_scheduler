@@ -29,20 +29,28 @@ end
 
 def print_theater_with_movie_show_times(theaters)
   theaters.each do |theater|
-    puts '===='
+    puts '========================================'
     puts theater.name
+    puts '========================================'
     puts "--Hours of operation #{theater.format_open_hour_with_minutes} to #{theater.format_close_hour_with_minutes}"
     puts "--Theater has #{theater.screen_count} screens"
     puts "--Theater has #{theater.movies.count} movies"
-    puts '===='
     puts "\n"
 
-    theater.movies.each do |movie|
-      theater.assign_movie_start_times(movie)
-      puts "#{movie.title} - #{movie.duration_in_minutes} minutes"
-      movie.start_times.each do |time|
-        puts "#{time.hour}:#{time.min}"
-      end
+    print_movie_schedule(theater)
+  end
+end
+
+def print_movie_schedule(theater)
+  theater.movies.each do |movie|
+    theater.assign_movie_start_times(movie)
+
+    puts "#{movie.title} - #{movie.duration_in_minutes} minutes"
+
+    movie.start_times.map do |time|
+      puts "#{time.hour}:#{time.min}"
     end
+
+    puts "\n"
   end
 end

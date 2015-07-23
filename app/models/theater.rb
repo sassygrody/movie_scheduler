@@ -27,34 +27,33 @@ class Theater
   end
 
   def assign_movie_start_times(movie)
-    split_duration_time = movie.duration.split(':')
+    if movie.start_times.empty?
+      movie.start_times << opens_at
+    end
+
+    movie_duration = movie_duration_plus_45_minutes(movie.duration)
+    last_show_time = closes_at - movie_duration
+
+    until movie.start_times[-1] + movie_duration > last_show_time
+      movie.start_times << movie.start_times[-1] + movie_duration
+    end
+  end
+
+  def movie_duration_plus_45_minutes(duration)
+    split_duration_time = duration.split(':')
     hour = split_duration_time[0].to_i
     min = split_duration_time[1].to_i
     movie_duration = (hour * 60 * 60) + (min * 60) + (45 * 60)
 
-    until movie.start_times.length == 4
-      if movie.start_times.empty?
-        movie.start_times << opens_at
-      else
-        movie.start_times << movie.start_times[-1] + movie_duration
-      end
-    end
+    round_time_to_nearest_5(movie_duration)
   end
 
-  # def assign_movie_start_times
-  #   movies.each do |movie|
-  #     split_duration_time = movie.duration.split(':')
-  #     hour = split_duration_time[0].to_i
-  #     min = split_duration_time[1].to_i
-  #     movie_duration = (hour * 60 * 60) + (min * 60) + (45 * 60)
-
-  #     if movie.start_times.empty?
-  #       movie.start_times << opens_at
-  #     else
-  #       until movie.start_times[-1] > theater.closes_at
-  #         movie.start_times << movie.start_times[-1] + movie_duration
-  #       end
-  #     end
-  #   end
-  # end
+  def round_time_to_nearest_5(duration)
+    if duration % 5 == 0
+      duration
+    else
+      down = duration - (duration % (5 * 60))
+      down + (5 * 60)
+    end
+  end
 end
