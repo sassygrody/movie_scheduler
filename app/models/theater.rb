@@ -26,35 +26,35 @@ class Theater
     "#{closes_at.hour}:#{closes_at.min}"
   end
 
-  # def assign_movie_start_times(movie)
-  #   split_duration_time = movie.duration.split(':')
-  #   hour = split_duration_time[0].to_i
-  #   min = split_duration_time[1].to_i
-  #   movie_duration = (hour * 60 * 60) + (min * 60) + (45 * 60)
+  def assign_movie_start_times(movie)
+    split_duration_time = movie.duration.split(':')
+    hour = split_duration_time[0].to_i
+    min = split_duration_time[1].to_i
+    movie_duration = (hour * 60 * 60) + (min * 60) + (45 * 60)
 
-  #   until movie.start_times.length == 4
-  #     if movie.start_times.empty?
-  #       movie.start_times << opens_at
-  #     else
-  #       movie.start_times << movie.start_times[-1] + movie_duration
-  #     end
-  #   end
-  # end
-
-  def assign_movie_start_times
-    theater.movies.each do |movie|
-      split_duration_time = movie.duration.split(':')
-      hour = split_duration_time[0].to_i
-      min = split_duration_time[1].to_i
-      movie_duration = (hour * 60 * 60) + (min * 60) + (45 * 60)
-
+    until movie.start_times.length == 4
       if movie.start_times.empty?
         movie.start_times << opens_at
       else
-        until movie.start_times[-1] > theater.closes_at
-          movie.start_times << movie.start_times[-1] + movie_duration
-        end
+        movie.start_times << movie.start_times[-1] + movie_duration
       end
     end
   end
+
+  # def assign_movie_start_times
+  #   movies.each do |movie|
+  #     split_duration_time = movie.duration.split(':')
+  #     hour = split_duration_time[0].to_i
+  #     min = split_duration_time[1].to_i
+  #     movie_duration = (hour * 60 * 60) + (min * 60) + (45 * 60)
+
+  #     if movie.start_times.empty?
+  #       movie.start_times << opens_at
+  #     else
+  #       until movie.start_times[-1] > theater.closes_at
+  #         movie.start_times << movie.start_times[-1] + movie_duration
+  #       end
+  #     end
+  #   end
+  # end
 end

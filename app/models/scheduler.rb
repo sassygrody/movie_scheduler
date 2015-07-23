@@ -37,20 +37,12 @@ def print_theater_with_movie_show_times(theaters)
     puts '===='
     puts "\n"
 
-    theater.assign_movie_start_times
-
     theater.movies.each do |movie|
+      theater.assign_movie_start_times(movie)
+      puts "#{movie.title} - #{movie.duration_in_minutes} minutes"
       movie.start_times.each do |time|
         puts "#{time.hour}:#{time.min}"
       end
     end
-    # theater.movies.each do |movie|
-    #   theater.assign_movie_start_times(movie)
-    #   puts movie.title
-
-    #   movie.start_times.each do |time|
-    #     puts "#{time.hour}:#{time.min}"
-    #   end
-    # end
   end
 end

@@ -1,5 +1,16 @@
-Open,Quick Flick,2,11:00,23:59
-Book,MovieA,2010,PG,1:30
-Book,MovieB,2000,PG-13,2:00
-Show,MovieA,Quick Flick
-Show,MovieB,Quick Flick
+Open, Mega Movie, 5, 13:15, 23:00
+Open, Screen Zone, 12, 9:00, 20:30
+Open, Quick Flick, 2, 14:00, 23:59
+Book, There's Something About Mary, 1998, R, 2:14
+Book, How to Lose a Guy in 10 Days, 2003, PG-13, 1:56
+Book, Knocked Up, 2007, R, 2:08
+Book, The Wedding Singer, 1998, PG-13, 1:36
+Book, High Fidelity, 2000, R, 1:54
+Book, Sleepless in Seattle, 1993, PG, 1:46
+Book, The Proposal, 2009, PG-13, 1:48
+Show, The Wedding Singer, Screen Zone
+Show, The Wedding Singer, Quick Flick
+Show, Knocked Up, Screen Zone
+Show, High Fidelity, Screen Zone
+Show, There's Something About Mary, Mega Movie
+Show, High Fidelity, Mega Movie
