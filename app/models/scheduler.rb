@@ -4,37 +4,46 @@ require 'csv'
 require 'pp'
 
 def schedule_movies(file)
-  list_of_theaters = []
-  list_of_movies = []
+  @list_of_theaters = []
+  @list_of_movies = []
 
-  CSV.foreach(file, headers: false) do |row|
+  CSV.foreach(file) do |row|
     if row[0] == 'Open'
-      @theater = Theater.new(row[1], row[2], row[3], row[4])
-      list_of_theaters << @theater
+      parse_theater_info(row)
     elsif row[0] == 'Book'
-      @movie = Movie.new(row[1], row[2], row[3], row[4])
-      list_of_movies << @movie
+      parse_movie_info(row)
     elsif row[0] == 'Show'
-      list_of_theaters.each do |theater|
-        movie_from_row = list_of_movies.detect { |movie| movie.title == row[1] }
-        theater.add_movie(movie_from_row) if theater.name == row[2]
-      end
-    else
-      puts 'Something went wrong.'
+      assign_movies_to_theaters(row)
     end
   end
 
-  print_theater_with_movie_show_times(list_of_theaters)
+  print_theater_with_movie_show_times(@list_of_theaters)
+end
+
+def parse_theater_info(row)
+  @theater = Theater.new(row[1], row[2], row[3], row[4])
+  @list_of_theaters << @theater
+end
+
+def parse_movie_info(row)
+  @movie = Movie.new(row[1], row[2], row[3], row[4])
+  @list_of_movies << @movie
+end
+
+def assign_movies_to_theaters(row)
+  @list_of_theaters.each do |theater|
+    movie_object = @list_of_movies.detect { |movie| movie.title == row[1] }
+    new_movie_object = Movie.new(movie_object.title, movie_object.year, movie_object.rating, movie_object.duration)
+    theater.movies << new_movie_object if theater.name == row[2]
+  end
 end
 
 def print_theater_with_movie_show_times(theaters)
   theaters.each do |theater|
     puts '========================================'
     puts theater.name
+    puts "- Hours: #{theater.open_in_minutes} to #{theater.close_in_minutes}"
     puts '========================================'
-    puts "--Hours of operation #{theater.format_open_hour_with_minutes} to #{theater.format_close_hour_with_minutes}"
-    puts "--Theater has #{theater.screen_count} screens"
-    puts "--Theater has #{theater.movies.count} movies"
     puts "\n"
 
     print_movie_schedule(theater)
@@ -43,14 +52,12 @@ end
 
 def print_movie_schedule(theater)
   theater.movies.each do |movie|
-    theater.assign_movie_start_times(movie)
+    movie.assign_movie_start_times(theater) # pass theater for hours
 
     puts "#{movie.title} - #{movie.duration_in_minutes} minutes"
-
     movie.start_times.map do |time|
       puts "#{time.hour}:#{time.min}"
     end
-
     puts "\n"
   end
 end

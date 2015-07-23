@@ -35,4 +35,17 @@ class Movie
       down + (5 * 60)
     end
   end
+
+  def assign_movie_start_times(theater)
+    start_times << theater.opens_at if start_times.empty?
+
+    # duplicate movies already have start times!
+
+    movie_duration = duration_plus_45_minutes
+    last_show_time = theater.closes_at - movie_duration
+
+    until start_times[-1] + movie_duration > last_show_time
+      start_times << start_times[-1] + movie_duration
+    end
+  end
 end
