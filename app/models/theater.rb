@@ -11,8 +11,8 @@ class Theater
     @movies = []
   end
 
-  def opens_at_time
-    Time.parse(opens_at)
+  def hours_of_operation
+    "#{open_in_minutes} to #{close_in_minutes}"
   end
 
   def open_in_minutes

@@ -42,7 +42,7 @@ def print_theater_with_movie_show_times(theaters)
   theaters.each do |theater|
     puts '========================================'
     puts theater.name
-    puts "- Hours: #{theater.open_in_minutes} to #{theater.close_in_minutes}"
+    puts "- Hours: #{theater.hours_of_operation}"
     puts '========================================'
     puts "\n"
 
@@ -56,8 +56,7 @@ def print_movie_schedule(theater)
 
     puts "#{movie.title} - #{movie.duration_in_minutes} minutes"
     movie.start_times.map do |time|
-      # byebug
-      puts "#{time.hour}:#{time.min}"
+      puts " #{time.hour}:#{time.min}"
     end
     puts "\n"
   end
