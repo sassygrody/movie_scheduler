@@ -7,6 +7,7 @@ def schedule_movies(file)
   @list_of_theaters = []
   @list_of_movies = []
 
+  # the order of inputs is important
   CSV.foreach(file) do |row|
     if row[0] == 'Open'
       parse_theater_info(row)
@@ -16,7 +17,6 @@ def schedule_movies(file)
       assign_movies_to_theaters(row)
     end
   end
-
   print_theater_with_movie_show_times(@list_of_theaters)
 end
 
@@ -56,6 +56,7 @@ def print_movie_schedule(theater)
 
     puts "#{movie.title} - #{movie.duration_in_minutes} minutes"
     movie.start_times.map do |time|
+      # byebug
       puts "#{time.hour}:#{time.min}"
     end
     puts "\n"

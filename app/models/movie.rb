@@ -18,34 +18,34 @@ class Movie
     duration
   end
 
-  def duration_plus_45_minutes
-    split_duration_time = duration.split(':')
-    hour = split_duration_time[0].to_i
-    min = split_duration_time[1].to_i
-    movie_duration = (hour * 60 * 60) + (min * 60) + (45 * 60)
-
-    round_time_up_to_5(movie_duration)
-  end
-
-  def round_time_up_to_5(duration)
-    if duration % 5 == 0
-      duration
-    else
-      down = duration - (duration % (5 * 60))
-      down + (5 * 60)
-    end
-  end
-
   def assign_movie_start_times(theater)
-    start_times << theater.opens_at if start_times.empty?
-
-    # duplicate movies already have start times!
+    assign_first_showing(theater)
 
     movie_duration = duration_plus_45_minutes
     last_show_time = theater.closes_at - movie_duration
 
     until start_times[-1] + movie_duration > last_show_time
-      start_times << start_times[-1] + movie_duration
+      start_times << round_up(start_times[-1] + movie_duration)
+    end
+  end
+
+  def assign_first_showing(theater)
+    start_times << theater.opens_at if start_times.empty?
+    round_up(start_times.first)
+  end
+
+  def duration_plus_45_minutes
+    split_duration_time = duration.split(':')
+    hour = split_duration_time[0].to_i
+    min = split_duration_time[1].to_i
+    (hour * 60 * 60) + (min * 60) + (45 * 60)
+  end
+
+  def round_up(start_time)
+    if start_time.min == 0
+      start_time
+    else
+      Time.at((start_time.to_i / 300.0).ceil * 300)
     end
   end
 end
