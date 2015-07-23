@@ -27,11 +27,9 @@ class Theater
   end
 
   def assign_movie_start_times(movie)
-    if movie.start_times.empty?
-      movie.start_times << opens_at
-    end
+    assign_first_showtime(movie)
 
-    movie_duration = movie_duration_plus_45_minutes(movie.duration)
+    movie_duration = movie.duration_plus_45_minutes
     last_show_time = closes_at - movie_duration
 
     until movie.start_times[-1] + movie_duration > last_show_time
@@ -39,21 +37,9 @@ class Theater
     end
   end
 
-  def movie_duration_plus_45_minutes(duration)
-    split_duration_time = duration.split(':')
-    hour = split_duration_time[0].to_i
-    min = split_duration_time[1].to_i
-    movie_duration = (hour * 60 * 60) + (min * 60) + (45 * 60)
-
-    round_time_to_nearest_5(movie_duration)
-  end
-
-  def round_time_to_nearest_5(duration)
-    if duration % 5 == 0
-      duration
-    else
-      down = duration - (duration % (5 * 60))
-      down + (5 * 60)
+  def assign_first_showtime(movie)
+    if movie.start_times.empty?
+      movie.start_times << opens_at
     end
   end
 end
