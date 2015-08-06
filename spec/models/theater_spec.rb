@@ -10,7 +10,7 @@ describe 'Theater' do
 
   describe 'hours of operation' do
     it 'displays the theaters open hours' do
-      expect(theater.hours_of_operation).to eq('11:0 to 23:0')
+      expect(theater.hours_of_operation).to eq('11:00 AM to 11:00 PM')
     end
   end
 end

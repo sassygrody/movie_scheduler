@@ -58,10 +58,12 @@ class SchedulerController
     theater.movies.each do |movie|
       movie.assign_movie_start_times(theater) # pass theater for hours
 
-      puts "#{movie.title} - #{movie.duration_in_minutes} minutes"
+      puts "#{movie.title}".green + ", rated #{movie.rating}, #{movie.duration_in_minutes} minutes"
+      time_list = []
       movie.start_times.map do |time|
-        puts " #{time.hour}:#{time.min}"
+        time_list <<  " #{time.strftime('%I:%M %p')}"
       end
+      puts time_list.join(", ")
       puts "\n"
     end
   end
