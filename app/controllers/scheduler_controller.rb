@@ -1,7 +1,9 @@
 require_relative '../models/movie'
 require_relative '../models/theater'
+require_relative '../models/color'
 require 'csv'
 require 'pp'
+require 'artii'
 
 class SchedulerController
   def schedule_movies(file)
@@ -42,9 +44,10 @@ class SchedulerController
   def print_theater_with_movie_show_times(theaters)
     theaters.each do |theater|
       puts '========================================'
-      puts theater.name
-      puts "- Hours: #{theater.hours_of_operation}"
-      puts '========================================'
+      a = Artii::Base.new # :font => 'slant'
+      puts a.asciify("#{theater.name}")
+      puts " Hours: #{theater.hours_of_operation}"
+      # puts '========================================'
       puts "\n"
 
       print_movie_schedule(theater)
