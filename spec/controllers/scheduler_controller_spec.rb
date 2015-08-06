@@ -21,18 +21,14 @@ describe 'SchedulerController' do
 
   describe '#parse_theater_info' do
     xit 'creates a new theater object' do
-      @list_of_theaters = []
-      @theater = theater
-      expect(scheduler.parse_theater_info(open_row)).to eq([])
+      scheduler.parse_theater_info(open_row)
+      expect(@list_of_theaters.first).to be_a_kind_of Theater
+      # expect(scheduler.parse_theater_info(open_row)).to eq([])
     end
   end
 
   describe '#assign_movies_to_theaters' do
-    xit 'creates new movie objects' do
-    end
-
-    xit 'adds new object to theaters collection' do
-      expect(theater.movies).to include(movieA)
+    xit 'creates new movie objects that are distinct to the theater' do
     end
   end
 end
