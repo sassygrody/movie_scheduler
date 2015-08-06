@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe 'SchedulerController' do
-  let!(:movieA) { Movie.new('A', '2009', 'PG-13', '1:30') }
-  let!(:movieB) { Movie.new('B', '2015', 'G', '2:17') }
-  let!(:theater) { Theater.new('Webster', '10', '11:00', '23:00') }
-  let!(:theater2) { Theater.new('City North', '6', '10:00', '22:00') }
+  let!(:movieA) { Movie.new(title: 'A', year: '2009', rating: 'PG-13', duration: '1:30') }
+  let!(:movieB) { Movie.new(title: 'B', year: '2015', rating: 'G', duration: '2:17') }
+  let!(:theater) { Theater.new(name: 'Webster', screen_count: '10', opens_at: '11:00', closes_at: '23:00') }
+  let!(:theater2) { Theater.new(name: 'City North', screen_count: '6', opens_at: '10:00', closes_at: '22:00') }
 
   let(:open_row) { ['Open', 'City North', '5', '13:15', '23:00'] }
   let(:book_row) { ['Book', 'MovieA', '1998', 'R', '2:15'] }

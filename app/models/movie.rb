@@ -4,11 +4,10 @@ require 'time'
 class Movie
   attr_accessor :title, :year, :rating, :duration, :start_times
 
-  def initialize(title, year, rating, duration)
-    @title = title
-    @year = year
-    @rating = rating
-    @duration = duration
+  def initialize(args = {})
+    args.each do |k, v|
+      instance_variable_set("@#{k}", v)
+    end
     @start_times = []
   end
 

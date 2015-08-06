@@ -3,12 +3,19 @@ require 'pry-byebug'
 class Theater
   attr_accessor :name, :screen_count, :opens_at, :closes_at, :movies
 
-  def initialize(name, screen_count, opens_at, closes_at)
-    @name = name
-    @screen_count = screen_count
-    @opens_at = Time.parse(opens_at)
-    @closes_at = Time.parse(closes_at)
+  def initialize(args = {})
+    args.each do |k, v|
+      instance_variable_set("@#{k}", v)
+    end
     @movies = []
+  end
+
+  def opens_at
+    Time.parse(@opens_at)
+  end
+
+  def closes_at
+    Time.parse(@closes_at)
   end
 
   def hours_of_operation
@@ -16,10 +23,10 @@ class Theater
   end
 
   def open_in_minutes
-    "#{opens_at.hour}:#{opens_at.min}"
+    "#{opens_at.strftime('%I:%M %p')}"
   end
 
   def close_in_minutes
-    "#{closes_at.hour}:#{closes_at.min}"
+    "#{closes_at.strftime('%I:%M %p')}"
   end
 end
