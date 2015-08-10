@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe 'Movie' do
-  let!(:movieA) { Movie.new(title: 'A', year: '2009', rating: 'PG-13', duration: '1:30') }
-  let!(:movieB) { Movie.new(title: 'B', year: '2015', rating: 'G', duration: '2:17') }
-  let!(:movieC) { Movie.new(title: 'C', year: '2000', rating: 'R', duration: '1:45') }
+  let!(:movieA) { Movie.new(title: 'A', year: '2009', rating: 'PG-13', duration: '1:30', theater: theater) }
+  let!(:movieB) { Movie.new(title: 'B', year: '2015', rating: 'G', duration: '2:17', theater: theater2) }
+  let!(:movieC) { Movie.new(title: 'C', year: '2000', rating: 'R', duration: '1:45', theater: theater3) }
   let!(:theater) { Theater.new(name: 'Webster',screen_count: '10', opens_at: '11:00', closes_at: '23:00') }
   let!(:theater2) { Theater.new(name: 'City North',screen_count: '6', opens_at: '10:00', closes_at: '22:00') }
   let!(:theater3) { Theater.new(name: 'Regal', screen_count:'15', opens_at: '12:00', closes_at: '23:00') }
@@ -11,9 +11,15 @@ describe 'Movie' do
   let!(:movieB_duration_plus_45) { (2 * 60 * 60) + (17 * 60) + (45 * 60) } # => 10920
 
   before do
-    movieA.assign_movie_start_times(theater)
-    movieB.assign_movie_start_times(theater2)
-    movieC.assign_movie_start_times(theater3)
+    movieA.assign_movie_start_times
+    movieB.assign_movie_start_times
+    movieC.assign_movie_start_times
+  end
+
+  it "can call it's theater" do
+    expect(movieA.theater).to eq theater
+    movieA.theater = theater3
+    expect(movieA.theater).to eq theater3
   end
 
   describe '#duration_in_minutes' do

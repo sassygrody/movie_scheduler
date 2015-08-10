@@ -1,7 +1,6 @@
-require 'pry-byebug'
-# shut up
+# stahp
 class Theater
-  attr_accessor :name, :screen_count, :opens_at, :closes_at, :movies
+  attr_reader :name, :screen_count, :opens_at, :closes_at, :movies
 
   def initialize(args = {})
     @name = args[:name]
@@ -29,5 +28,13 @@ class Theater
 
   def close_in_minutes
     "#{closes_at.strftime('%I:%M %p')}"
+  end
+
+  def print_display_name_and_hours
+    puts '========================================'
+    a = Artii::Base.new # :font => 'slant'
+    puts a.asciify("#{name}")
+    puts " Hours: #{hours_of_operation}"
+    puts "\n"
   end
 end

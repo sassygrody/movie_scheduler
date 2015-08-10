@@ -1,8 +1,9 @@
 require 'time'
 
-# Shut up
+# stahp
 class Movie
-  attr_accessor :title, :year, :rating, :duration, :start_times
+  attr_reader :title, :year, :rating, :duration, :start_times, :theater
+  attr_accessor :theater
 
   def initialize(args = {})
     @title = args[:title]
@@ -10,6 +11,7 @@ class Movie
     @rating = args[:rating]
     @duration = args[:duration]
     @start_times = []
+    @theater = args[:theater]
   end
 
   def duration_in_minutes
@@ -18,7 +20,7 @@ class Movie
     duration
   end
 
-  def assign_movie_start_times(theater)
+  def assign_movie_start_times
     assign_first_showing(theater)
 
     movie_duration = duration_plus_45_minutes
@@ -47,5 +49,24 @@ class Movie
     else
       Time.at((start_time.to_i / 300.0).ceil * 300)
     end
+  end
+
+  def print_display_name
+    puts "#{title}".green + ", rated #{rating}, #{duration_in_minutes} minutes"
+  end
+
+  def print_display_time
+    time_list = []
+    start_times.map do |time|
+      time_list << " #{time.strftime('%I:%M %p')}"
+    end
+    puts time_list.join(', ')
+    puts "\n"
+  end
+
+  def print_movie_schedule
+    assign_movie_start_times
+    print_display_name
+    print_display_time
   end
 end
