@@ -4,9 +4,10 @@ class Theater
   attr_accessor :name, :screen_count, :opens_at, :closes_at, :movies
 
   def initialize(args = {})
-    args.each do |k, v|
-      instance_variable_set("@#{k}", v)
-    end
+    @name = args[:name]
+    @screen_count = args[:screen_count]
+    @opens_at = args[:opens_at]
+    @closes_at = args[:closes_at]
     @movies = []
   end
 

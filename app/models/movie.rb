@@ -5,9 +5,10 @@ class Movie
   attr_accessor :title, :year, :rating, :duration, :start_times
 
   def initialize(args = {})
-    args.each do |k, v|
-      instance_variable_set("@#{k}", v)
-    end
+    @title = args[:title]
+    @year = args[:year]
+    @rating = args[:rating]
+    @duration = args[:duration]
     @start_times = []
   end
 
